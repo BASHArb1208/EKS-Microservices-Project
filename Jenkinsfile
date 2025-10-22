@@ -8,7 +8,7 @@ pipeline {
                     dir('src') {
 
                     withDockerRegistry(credentialsId: 'docker-rbid', toolName: 'docker') {
-                        sh "docker build -t bash10/cartservice:latest ."
+                        sh "docker build -t basha10/cartservice:latest ."
                     }
                         }
                 }
