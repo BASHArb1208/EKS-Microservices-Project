@@ -4,30 +4,17 @@ pipeline {
     stages {
         stage('Deploy To Kubernetes') {
             steps {
-                withKubeCredentials(
-                    kubectlCredentials: [[
-                        credentialsId: 'rbtoken',
-                        serverUrl: 'https://68E35C2098A26E047CB0EED9AEFF23AB.gr7.us-east-1.eks.amazonaws.com',
-                        clusterName: 'RBBEKS',
-                        namespace: 'rbapps'
-                    ]]
-                ) {
-                    sh 'kubectl apply -f deployment-service.yml -n rbapps'
+                withKubeCredentials(kubectlCredentials: [[caCertificate: '', clusterName: 'RBBEKS', contextName: '', credentialsId: 'rbtoken', namespace: 'rbapps', serverUrl: 'https://68E35C2098A26E047CB0EED9AEFF23AB.gr7.us-east-1.eks.amazonaws.com']]) {
+                    sh "kubectl apply -f deployment-service.yml"
+                    
                 }
             }
         }
-
-        stage('Verify Deployment') {
+        
+        stage('verify Deployment') {
             steps {
-                withKubeCredentials(
-                    kubectlCredentials: [[
-                        credentialsId: 'rbtoken',
-                        serverUrl: 'https://68E35C2098A26E047CB0EED9AEFF23AB.gr7.us-east-1.eks.amazonaws.com',
-                        clusterName: 'RBBEKS',
-                        namespace: 'rbapps'
-                    ]]
-                ) {
-                    sh 'kubectl get all -n rbapps'
+                withKubeCredentials(kubectlCredentials: [[caCertificate: '', clusterName: 'RBBEKS', contextName: '', credentialsId: 'rbtoken', namespace: 'rbapps', serverUrl: 'https://68E35C2098A26E047CB0EED9AEFF23AB.gr7.us-east-1.eks.amazonaws.com']]) {
+                    sh "kubectl get svc -n rbapps"
                 }
             }
         }
