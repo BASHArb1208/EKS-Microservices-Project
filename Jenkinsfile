@@ -5,7 +5,7 @@ pipeline {
         stage('Build & Tag Docker Image') {
             steps {
                 script {
-                    withDockerRegistry(credentialsId: 'docker-id', toolName: 'docker') {
+                    withDockerRegistry(credentialsId: 'docker-rid', toolName: 'docker') {
                         sh "docker build -t basha10/currencyservice:latest ."
                     }
                 }
